@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_start();
 //check for required fields from the form
 if ((!filter_input(INPUT_POST, 'username'))
