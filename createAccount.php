@@ -44,24 +44,32 @@ if ((!isset($_POST['username'])) || (!isset($_POST['password']))) {
 
     $resultCheck = $mysqli->query($sqlCheck);
     if ($resultCheck->num_rows == 0) {
-        
-        $sqlInsert = "INSERT INTO userInfo (username, password, firstname, lastname, email, age) "
+
+        $sqlInsertTouserInfo = "INSERT INTO userInfo (username, password, firstname, lastname, email, age) "
                 . "VALUES ('" . $targetusername . "', SHA1('" . $targetpasswd . "'), '" . $targetfname . "', "
                 . "'" . $targetlname . "', '" . $targetemail . "', " . $targetage . " )";
 //        echo $sqlInsert;
-        $result = $mysqli->query($sqlInsert);
+        $resultuserInfo = $mysqli->query($sqlInsertTouserInfo);
+
         
-        if ($result === TRUE) {
-            $displayBlock_CreateAccount = "<p>Insert Success</p>";
+        $sqlInsertToLogin = "INSERT INTO userLogin (username, password) "
+                . "VALUES ('" . $targetusername . "', SHA1('" . $targetpasswd . "'))";
+        $resultuserLogin = $mysqli->query($sqlInsertToLogin);
+        if ($resultuserInfo === TRUE && $resultuserLogin === TRUE) {
+//            $displayBlock_CreateAccount = '<a href="login.php">Log in to Your Account</a> '
+//                    . '<br><br><a href="homePage.php">Go to HomePage</a><br><br>';
+            header("Location: login.php"); 
+            
         } else {
-            $displayBlock_CreateAccount = "<p>Error Occurs</p>";
+            $displayBlock_CreateAccount = "<p>Unexpected error occurs. Please recreate account.</p>"
+                    . "<br><br><a href = 'createAccount.php'>Create Account</a>";
         }
     } else {
         $displayBlock_CreateAccount = "
             <form method='post' action=''>
             <fieldset> <legend><h3> Account Information </h3></legend>
                 <p><strong>username:</strong><br/>
-                Please Enter different username<br/>
+                <u><strong>Please Enter different username</strong></u><br/>
                     <input type='text' name='username' required></p>
                     
                 <p><strong>password:</strong><br/>
@@ -79,7 +87,6 @@ if ((!isset($_POST['username'])) || (!isset($_POST['password']))) {
         </form>
         <br>
         <a href ='userLogin.php'>Login to your account</a>";
-        
     }
     $mysqli->close();
 }
