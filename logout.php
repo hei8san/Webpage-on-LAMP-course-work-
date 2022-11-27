@@ -13,7 +13,7 @@ session_destroy();
         <h2>Log out success</h2>
 
         <div class="redirect">
-            <button>Redirect</button>
+            <button>Redirect to Home page</button>
         </div>
         <script>
             // click event on button
