@@ -5,10 +5,11 @@ $displayTable;
 if (isset($_POST['conditions'])) {
     $condition = $_POST['conditions'];
     if ($condition == 'all') {
+        $displayBlock_adminPage .= "All user's information";
         //connect to server and select database
         $mysqli = mysqli_connect("localhost", "cs213user", "letmein", "finalProjectDB");
         $sql_AllDisplay = "SELECT username, CONCAT(CONCAT(firstname, ' '), lastname) Fullname, email, age FROM userInfo";
-        
+
         $result_AllDisplay = mysqli_query($mysqli, $sql_AllDisplay) or die(mysqli_error($mysqli));
         if (mysqli_num_rows($result_AllDisplay) > 0) {
             $displayTable = "<table> <tr><th>username</th><th>Full name</th><th>Email</th><th>Age</th></tr>";
@@ -20,17 +21,25 @@ if (isset($_POST['conditions'])) {
                 $displayTable .= "<tr> <td> " . $username . "</td> <td>" . $fullname . "</td> <td>" . $email . "</td><td>" . $age . "</td></tr>";
             }
             $displayTable .= "</table>";
-        } else {
-            
         }
     } else if ($condition == 'age') {
-        
+        $displayBlock_adminPage = "<h2>Select Range and Base age</h2>
+        <form action='admin_age_table.php' method = 'post'>
+            
+            Base Age: <input type ='number' name = 'base'><br>
+            Range: <input type ='number' name = 'range'>
+            <br><br>
+            <input type='submitRangeAge' value='Submit'>
+        </form>";
+        //range
+        //base 
     } else if ($condition == 'initial') {
-        
+        //alphabetical selection
     } else if ($condition == 'email') {
-        
-}}
- else {
+        //input
+        //tunagete
+    }
+} else {
     $displayBlock_adminPage = "<h2>Select Options</h2>
         <form action='' method = 'post'>
             <label for='conditions'>Choose conditions:</label>
@@ -48,7 +57,7 @@ if (isset($_POST['conditions'])) {
 <html>
     <head>
         <title>Admin</title>
-         <style>
+        <style>
             th {
 
                 border-right: 1px solid #000000;
@@ -65,12 +74,12 @@ if (isset($_POST['conditions'])) {
                 border-top: 1px solid #000000;
                 border-left: 1px solid #000000;
                 text-align: left;
-                
+
                 color: blue;
             }
 
             table {
-                
+
                 border-collapse: separate;
                 border-right: 1px solid #000000;
                 border-bottom: 1px solid #000000;
@@ -82,8 +91,9 @@ if (isset($_POST['conditions'])) {
         </style>
     </head>
     <body>
-        <?php echo $displayBlock_adminPage; 
-        echo $displayTable;?> 
+        <?php echo $displayBlock_adminPage;
+        echo $displayTable;
+        ?> 
 
     </body>
 </html>
