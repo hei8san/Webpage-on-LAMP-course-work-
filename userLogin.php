@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['logged_in'] = true;
 $displayBlock_AccountPage;
 
 if ((!filter_input(INPUT_POST, 'username')) || (!filter_input(INPUT_POST, 'password'))) {
@@ -17,6 +18,7 @@ $sqlLogin = "SELECT * FROM userLogin WHERE username = '" . $targetname .
         "' AND password = SHA1('" . $targetpasswd . "')";
 
 $resultLogin = mysqli_query($mysqli, $sqlLogin) or die(mysqli_error($mysqli));
+
 if ($resultLogin == 1) {
 //    $displayBlock_AccountPage = "<p>Success</p>";
     $_SESSION["username"] = $targetname;
@@ -25,6 +27,7 @@ if ($resultLogin == 1) {
 //    $displayBlock_AccountPage = "<p>Unsuccess</p>";
     header("Location: login.php"); 
 }
+
 ?>
 <html>
     <head>

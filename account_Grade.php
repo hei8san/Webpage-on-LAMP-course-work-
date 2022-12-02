@@ -1,45 +1,51 @@
 <?php
 session_start();
-$username = $_SESSION['username'];
-$display_accountPage;
 if (!empty($_SESSION['logged_in'])) {
+    $displayBlock_accountGrade;
+    $mysqli = mysqli_connect("localhost", "cs213user", "letmein", "finalProjectDB");
+    $cosc213 = $_POST['cosc213'];
+    $cosc219 = $_POST['cosc219'];
+    $cosc222 = $_POST['cosc222'];
+    $cosc236 = $_POST['cosc236'];
+    $cosc304 = $_POST['cosc304'];
+    $username = $_SESSION['username'];
+//if username exists grades table then
+    $sql_check_exist = "SELECT username FROM grades WHERE username = '" . $username . "'";
+//echo 'check';
+//echo $sql_check_exist;
+    $resultExist = $mysqli->query($sql_check_exist);
 
+    if ($resultExist->num_rows == 0) {
+//    echo 'NOT exists';
+        $sqlInsertgrades = "INSERT INTO grades (username, cosc213, cosc219, cosc222, cosc236, cosc304) "
+                . "VALUES ('" . $username . "', " . $cosc213 . ", " . $cosc219 . ", " . $cosc222 . ", " . $cosc236 . ", " . $cosc304 . ")";
+        $resultgrades = $mysqli->query($sqlInsertgrades);
 
-    if (!isset($_POST["Submit"])) {
-        $mysqli = mysqli_connect("localhost", "cs213user", "letmein", "finalProjectDB");
-        $sql_fullname = "SELECT firstname, lastname FROM userInfo WHERE username = '" . $username . "'";
-
-        $result_accountPage = mysqli_query($mysqli, $sql_fullname) or die(mysqli_error($mysqli));
-
-        if ($result_accountPage == 1) {
-            while ($newArray = mysqli_fetch_array($result_accountPage, MYSQLI_ASSOC)) {
-                $fname = $newArray['firstname'];
-                $lname = $newArray['lastname'];
-                $display_accountPage .= " <h2>Welcome " . $fname . " " . $lname . "!</h2>"
-                        . "<form action='account_Grade.php' method = 'post'>
-                <p>Enter the scores that you took in fall semester 2022.</p><br>
-                COSC213: <input type ='number' name ='cosc213' min ='0' max ='100'/ required><br><br>
-                COSC219: <input type ='number' name ='cosc219' min ='0' max ='100'/ required><br><br>
-                COSC222: <input type ='number' name ='cosc222' min ='0' max ='100'/ required><br><br>
-                COSC236: <input type ='number' name ='cosc236' min ='0' max ='100'/ required><br><br>
-                COSC304: <input type ='number' name ='cosc304' min ='0' max ='100'/ required><br><br>
-                <input type ='submit' value ='Submit'/>
-            </form>
-            <br>";
-            }
+        if ($resultgrades === TRUE) {
+            $displayBlock_accountGrade = "Your record is inserted. <br><br>";
         } else {
-            echo "Error Occurs";
-            header("Location: login.php");
+            echo 'error';
+        }
+    } else {
+        //echo 'exists';
+        $sqlUpdategrades = "UPDATE grades SET cosc213 = " . $cosc213 . ", cosc219 = " . $cosc219 . ", cosc222 = " . $cosc222 . ", cosc236 = " . $cosc236 . ", cosc304 = " . $cosc304 . " WHERE username = '" . $username . "'";
+        echo $sqlUpdategrades;
+        $result_update_grades = $mysqli->query($sqlUpdategrades);
+
+        if ($result_update_grades === TRUE) {
+            $displayBlock_accountGrade = "Your record is updated. <br><br>";
+        } else {
+            echo 'error';
         }
     }
-}else{
+} else {
     header("Location: login.php");
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>User Page</title>
+        <title>Enter Grades</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
@@ -95,15 +101,14 @@ if (!empty($_SESSION['logged_in'])) {
     <body>
 
         <div class="topnav">
-            <!--            <a href="homePage.php">Home</a>-->
             <a href="logout.php">Log out</a>
         </div>
 
         <div class="content">
 
-<?php echo $display_accountPage; ?>
-
+<?php echo $displayBlock_accountGrade; ?>
             <a href="account_showGrade.php">Look at grade</a>
+
 
         </div>
 

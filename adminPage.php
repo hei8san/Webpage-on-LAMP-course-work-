@@ -1,99 +1,162 @@
 <?php
+session_start();
 $displayBlock_adminPage;
 $displayTable;
-
-if (isset($_POST['conditions'])) {
-    $condition = $_POST['conditions'];
-    if ($condition == 'all') {
-        $displayBlock_adminPage .= "All user's information";
-        //connect to server and select database
-        $mysqli = mysqli_connect("localhost", "cs213user", "letmein", "finalProjectDB");
-        $sql_AllDisplay = "SELECT username, CONCAT(CONCAT(firstname, ' '), lastname) Fullname, email, age FROM userInfo";
-
-        $result_AllDisplay = mysqli_query($mysqli, $sql_AllDisplay) or die(mysqli_error($mysqli));
-        if (mysqli_num_rows($result_AllDisplay) > 0) {
-            $displayTable = "<table> <tr><th>username</th><th>Full name</th><th>Email</th><th>Age</th></tr>";
-            while ($newArray = mysqli_fetch_array($result_AllDisplay, MYSQLI_ASSOC)) {
-                $username = $newArray['username'];
-                $fullname = $newArray['Fullname'];
-                $email = $newArray['email'];
-                $age = $newArray['age'];
-                $displayTable .= "<tr> <td> " . $username . "</td> <td>" . $fullname . "</td> <td>" . $email . "</td><td>" . $age . "</td></tr>";
-            }
-            $displayTable .= "</table>";
-        }
-    } else if ($condition == 'age') {
-        $displayBlock_adminPage = "<h2>Select Range and Base age</h2>
-        <form action='admin_age_table.php' method = 'post'>
+if (!empty($_SESSION['admin_logged_in'])) {
+    if (isset($_POST['conditions'])) {
+        $condition = $_POST['conditions'];
+        if ($condition == 'all') {
+            header("Location: admin_AllUsers.php");
+        } else if ($condition == 'age') {
+            $displayBlock_adminPage = "<h2>Select Range and Base age</h2>
+            <p>It will be selected Base age +10</p><br><br>
+            <p>Example: </p>
+            <p>Base Age: 10  Displaying 10 - 20 Years old Users</p>
+        <form action='admin_SortAge.php' method = 'post'>
             
             Base Age: <input type ='number' name = 'base'><br>
-            Range: <input type ='number' name = 'range'>
+            
             <br><br>
-            <input type='submitRangeAge' value='Submit'>
+            <input type='submit' value='Submit'>
         </form>";
-        //range
-        //base 
-    } else if ($condition == 'initial') {
-        //alphabetical selection
-    } else if ($condition == 'email') {
-        //input
-        //tunagete
-    }
-} else {
-    $displayBlock_adminPage = "<h2>Select Options</h2>
+        } else if ($condition == 'initial') {
+            $displayBlock_adminPage = "<h4>Select Initial</h4>
+            
+        <form action='admin_SortAlphabet.php' method = 'post'>
+            <select name='alphabet' id='alphabet' class = 'alphabet'>
+            <option value = 'A'>A</option>
+                      <option value = 'B'>B</option>
+                      <option value = 'C'>C</option>
+                      <option value = 'D'>D</option>
+                      <option value = 'E'>E</option>
+                      <option value = 'F'>F</option>
+                      <option value = 'G'>G</option>
+                      <option value = 'H'>H</option>
+                      <option value = 'I'>I</option>
+                      <option value = 'J'>J</option>
+                      <option value = 'K'>K</option>
+                      <option value = 'L'>L</option>
+                      <option value = 'M'>M</option>
+                      <option value = 'N'>N</option>
+                      <option value = 'O'>O</option>
+                      <option value = 'P'>P</option>
+                      <option value = 'Q'>Q</option>
+                      <option value = 'R'>R</option>
+                      <option value = 'S'>S</option>
+                      <option value = 'T'>T</option>
+                      <option value = 'U'>U</option>
+                      <option value = 'V'>V</option>
+                      <option value = 'W'>W</option>
+                      <option value = 'X'>X</option>
+                      <option value = 'Y'>Y</option>
+                      <option value = 'Z'>Z</option>
+                   </select>
+            <br><br>
+            <input type='submit' value='Submit'>
+        </form>";
+        }
+    } else {
+        $displayBlock_adminPage = "<h2>Select Options</h2>
         <form action='' method = 'post'>
             <label for='conditions'>Choose conditions:</label>
             <select name='conditions' id='conditions'>
                 <option value='all'>All users</option>
                 <option value='age'>Age</option>
                 <option value='initial'>Initial letter</option>
-                <option value='email'>Email</option>
             </select>
             <br><br>
             <input type='submit' value='Submit'>
         </form>";
+    }
+} else {
+    header("Location: adminLogin.php");
 }
 ?>
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
-        <title>Admin</title>
+        <title>Administrator Page</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
-            th {
-
-                border-right: 1px solid #000000;
-                border-bottom: 1px solid #000000;
-                border-top: 1px solid #000000;
-                border-left: 1px solid #000000;
-                color: blue;
-                font-weight: bold;
-            }
-            td {
-                padding: 5px;
-                border-right: 1px solid #000000;
-                border-bottom: 1px solid #000000;
-                border-top: 1px solid #000000;
-                border-left: 1px solid #000000;
-                text-align: left;
-
-                color: blue;
+            * {
+                box-sizing: border-box;
+                font-family: Arial, Helvetica, sans-serif;
             }
 
-            table {
+            body {
+                margin: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
 
-                border-collapse: separate;
-                border-right: 1px solid #000000;
-                border-bottom: 1px solid #000000;
-                border-top: 1px solid #000000;
-                border-left: 1px solid #000000;
+            /* Style the top navigation bar */
+            .topnav {
+                overflow: hidden;
+                background-color: #333;
+            }
+
+            /* Style the topnav links */
+            .topnav a {
+                float: left;
+                display: block;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+            /* Change color on hover */
+            .topnav a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+
+            /* Style the content */
+            .content {
+                background-color: #FFFFFF;
+                padding: 10px;
+
+            }
+
+            /* Style the footer */
+            .footer {
+                background-color: #DDDDDD;
+                padding: 10px;
+                text-align: center;
+                size: 10px;
+                color: black;
+            }
+            .alphabet {
 
 
+                cursor: pointer;
+                /*    width:80%;*/
+                text-align:center;
             }
         </style>
     </head>
     <body>
-        <?php echo $displayBlock_adminPage;
-        echo $displayTable;
-        ?> 
+
+        <div class="topnav">
+            <a href="logout.php">Log out</a>
+
+        </div>
+
+        <div class="content">
+
+            <?php
+            echo $displayBlock_adminPage;
+            echo $displayTable;
+            ?> 
+
+
+        </div>
+
+        <div class="footer">
+            <p>This website is made by Gustavo, Kohei</p>
+        </div>
 
     </body>
 </html>
+
+

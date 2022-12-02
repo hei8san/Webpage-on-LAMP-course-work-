@@ -1,5 +1,4 @@
 <?php
-session_start();
 $displayBlock_CreateAccount;
 //check for required fields from the form
 //if ((!filter_input(INPUT_POST, 'username')) || (!filter_input(INPUT_POST, 'password'))) {
@@ -91,12 +90,81 @@ if ((!isset($_POST['username'])) || (!isset($_POST['password']))) {
     $mysqli->close();
 }
 ?>
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <title>Create Account</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            * {
+                box-sizing: border-box;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            body {
+                margin: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            /* Style the top navigation bar */
+            .topnav {
+                overflow: hidden;
+                background-color: #333;
+            }
+
+            /* Style the topnav links */
+            .topnav a {
+                float: left;
+                display: block;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+            /* Change color on hover */
+            .topnav a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+
+            /* Style the content */
+            .content {
+                background-color: #FFFFFF;
+                padding: 10px;
+
+            }
+
+            /* Style the footer */
+            .footer {
+                background-color: #DDDDDD;
+                padding: 10px;
+                text-align: center;
+                size: 10px;
+                color: black;
+            }
+        </style>
     </head>
-    <body style="background-color: bisque">
-        <?php echo $displayBlock_CreateAccount; ?>
+    <body>
+
+        <div class="topnav">
+            <a href="homePage.php">Home</a>
+        </div>
+
+        <div class="content">
+
+            <?php echo $displayBlock_CreateAccount; ?>
+        <br>
+
+
+        </div>
+
+        <div class="footer">
+            <p>This website is made by Gustavo, Kohei</p>
+        </div>
+
     </body>
 </html>
+
 
