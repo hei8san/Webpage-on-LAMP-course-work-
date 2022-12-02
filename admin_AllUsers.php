@@ -149,8 +149,8 @@ ORDER BY Name;";
                 </tr>
                 <?php echo $displayTable; ?>
             </table>
-
-
+            <br>
+            <a href="adminPage.php">Go back to select options</a>
         </div>
 
         <div class="footer">

@@ -1,11 +1,8 @@
-<?php
-session_start();
-session_destroy();
-?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Log out</title>
+
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
@@ -56,11 +53,17 @@ session_destroy();
                 size: 10px;
                 color: black;
             }
-
         </style>
-        <script 
-            src="https://code.jquery.com/jquery-git.js">
-        </script>  
+        <title>Change image on mouse over</title>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
+        <script type="text/javascript">
+            function toggleImage(thisimage) {
+                $('.prev_btn, .next_btn').on('click', function (e) {
+                    $('1.png').toggle();
+                });
+            }
+        </script>
+
     </head>
     <body>
 
@@ -70,24 +73,11 @@ session_destroy();
 
         <div class="content">
 
-            <h2>Log out success</h2>
+            <div id="pro"><img src="2.png" onmouseover="this.src = '1.png'" onmouseout="this.src = '2.png'">
 
-            <div class="redirect">
-                <button>Redirect to Home page</button>
+                <div class="prev_btn" onclick="toggle(this)"></div>
+                <div class="next_btn" onclick="toggle(this)"></div>
             </div>
-            <script>
-                // click event on button
-                $("button").click(function () {
-                    $(".redirect").text("Redirecting....")
-
-                    // storing url and time
-                    let delay = 5000;
-                    let url = "https://ksawabevm.cosc.okc/cs213project/homePage.php";
-                    setTimeout(function () {
-                        location = url;
-                    }, 5000)
-                })
-            </script>
 
 
         </div>

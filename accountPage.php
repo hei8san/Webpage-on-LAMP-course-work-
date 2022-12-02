@@ -17,13 +17,13 @@ if (!empty($_SESSION['logged_in'])) {
                 $lname = $newArray['lastname'];
                 $display_accountPage .= " <h2>Welcome " . $fname . " " . $lname . "!</h2>"
                         . "<form action='account_Grade.php' method = 'post'>
-                <p>Enter the scores that you took in fall semester 2022.</p><br>
+                <p>Enter the scores that you got in fall semester 2022.</p><br>
                 COSC213: <input type ='number' name ='cosc213' min ='0' max ='100'/ required><br><br>
                 COSC219: <input type ='number' name ='cosc219' min ='0' max ='100'/ required><br><br>
                 COSC222: <input type ='number' name ='cosc222' min ='0' max ='100'/ required><br><br>
                 COSC236: <input type ='number' name ='cosc236' min ='0' max ='100'/ required><br><br>
                 COSC304: <input type ='number' name ='cosc304' min ='0' max ='100'/ required><br><br>
-                <input type ='submit' value ='Submit'/>
+                <input type ='submit' value ='Submit or Update'/>
             </form>
             <br>";
             }

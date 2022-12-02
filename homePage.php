@@ -68,7 +68,7 @@
 
 
             <a href="adminLogin.php">Log in to Administrator Account</a><br/><br/>
-            <a href="jquery_Example.php">JQuery Exapmle</a><br/><br/>
+            <a href="jquery_Example.php">JQuery and AJAX Exapmles</a><br/><br/>
             <a href="design.php">Design</a>
         </div>
 

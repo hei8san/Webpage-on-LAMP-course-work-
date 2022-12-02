@@ -1,0 +1,1 @@
+<h3>This is an example of AJAX for COSC213 project. This function retrieves the content of a text file which is inside our NetBeans Project folder.</h3>

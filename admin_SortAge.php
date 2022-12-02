@@ -28,6 +28,8 @@ ORDER BY Name;";
             $ave = $newArray['Average'];
             $displayTable .= "<tr> <td> " . $name . "</td> <td> " . $cosc213 . "</td> <td>" . $cosc219 . "</td> <td>" . $cosc222 . "</td><td>" . $cosc236 . "</td><td>" . $cosc304 . "</td><td>" . round($ave, 1) . "</td></tr>";
         }
+        
+        
     } else {
         $displayBlock_SortAlphabet .= "Not matched.";
     }
@@ -157,7 +159,8 @@ ORDER BY Name;";
                 <?php echo $displayBlock_SortAlphabet; ?>
             </table>
 
-
+<br>
+<a href='adminPage.php'>Go back to select options</a>
         </div>
 
         <div class="footer">

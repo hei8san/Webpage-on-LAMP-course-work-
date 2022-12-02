@@ -152,8 +152,8 @@ g.username = i.username;";
                 </tr>
                 <?php echo $displayBlock_showGrade; ?>
             </table>
-
-
+            <br>
+            <a href="accountPage.php">User Page</a>
         </div>
 
         <div class="footer">

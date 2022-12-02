@@ -6,19 +6,19 @@ if (!empty($_SESSION['admin_logged_in'])) {
     if (isset($_POST['conditions'])) {
         $condition = $_POST['conditions'];
         if ($condition == 'all') {
-            header("Location: admin_AllUsers.php");
+            header("Location: admin_AllUsers.php"); 
         } else if ($condition == 'age') {
-            $displayBlock_adminPage = "<h2>Select Range and Base age</h2>
-            <p>It will be selected Base age +10</p><br><br>
-            <p>Example: </p>
-            <p>Base Age: 10  Displaying 10 - 20 Years old Users</p>
+            $displayBlock_adminPage = "<h2>Select start age</h2>
+            <p>It will display all the users with an age starting at the selected number plus 10.</p>
+            <p>For instance, if the age is 10, it will display all the users between 10 years old up to 20 Years old.</p>
         <form action='admin_SortAge.php' method = 'post'>
             
-            Base Age: <input type ='number' name = 'base'><br>
+            Age starts: <input type ='number' name = 'base'><br>
             
             <br><br>
             <input type='submit' value='Submit'>
-        </form>";
+        </form><br>
+<a href='adminPage.php'>Go back to select options</a>";
         } else if ($condition == 'initial') {
             $displayBlock_adminPage = "<h4>Select Initial</h4>
             
@@ -53,7 +53,8 @@ if (!empty($_SESSION['admin_logged_in'])) {
                    </select>
             <br><br>
             <input type='submit' value='Submit'>
-        </form>";
+        </form><br>
+<a href='adminPage.php'>Go back to select options</a>";
         }
     } else {
         $displayBlock_adminPage = "<h2>Select Options</h2>
@@ -148,7 +149,7 @@ if (!empty($_SESSION['admin_logged_in'])) {
             echo $displayBlock_adminPage;
             echo $displayTable;
             ?> 
-
+            
 
         </div>
 

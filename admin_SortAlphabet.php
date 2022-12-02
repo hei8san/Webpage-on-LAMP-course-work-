@@ -155,7 +155,8 @@ ORDER BY Name;";
                 <?php echo $displayTable; ?>
                 <?php echo $displayBlock_SortAlphabet; ?>
             </table>
-
+<br>
+<a href='adminPage.php'>Go back to select options</a>
 
         </div>
 

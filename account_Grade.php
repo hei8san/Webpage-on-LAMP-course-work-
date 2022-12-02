@@ -29,7 +29,7 @@ if (!empty($_SESSION['logged_in'])) {
     } else {
         //echo 'exists';
         $sqlUpdategrades = "UPDATE grades SET cosc213 = " . $cosc213 . ", cosc219 = " . $cosc219 . ", cosc222 = " . $cosc222 . ", cosc236 = " . $cosc236 . ", cosc304 = " . $cosc304 . " WHERE username = '" . $username . "'";
-        echo $sqlUpdategrades;
+        //echo $sqlUpdategrades;
         $result_update_grades = $mysqli->query($sqlUpdategrades);
 
         if ($result_update_grades === TRUE) {
