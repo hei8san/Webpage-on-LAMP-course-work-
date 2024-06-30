@@ -27,9 +27,6 @@ Follow these steps to set up the project locally:
     - Install Apache, MySQL, and PHP
     - Import the provided SQL file to set up the database
 
-3. **Configure the database connection**
-    - Update the database connection settings in the `config.php` file
-
 ## Usage
 
 To start using the application, navigate to the project directory in your web browser and access the homepage.
